@@ -20,6 +20,7 @@ class Students extends Component {
 
       <div>
       {batch.students.map(x => {
+          const {batch} = this.props
         return (
           <div>
           <OneStudent
@@ -27,7 +28,7 @@ class Students extends Component {
             <button
             onClick={
               _=>window.location
-              .href=`/batches/${x.batchId}/${x.studentId}`
+              .href=`/students/${x.id}`
             }>
             Evaluate
             </button>

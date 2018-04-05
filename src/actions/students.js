@@ -1,28 +1,15 @@
 import * as request from 'superagent'
 const baseUrl = 'http://localhost:4001'
 
-export const ALL_BATCHES = 'ALL_BATCHES'
+export const GET_STUDENT = 'GET_STUDENT'
 
-
-export const allBatches = () => (dispatch) => {
+export const getStudent = (studentId) => (dispatch) => {
   request
-    .get(`${baseUrl}/batches/`)
-    .then(result => {
-      dispatch({
-        type: ALL_BATCHES,
-        payload: result.body
-      })
-    })
-    .catch(err => console.error(err))
-}
-
-export const showTeacherQuiz = (id) => (dispatch) => {
-  request
-  .get(`${apiUrl}/results/quiz/${id}`)
+  .get(`${baseUrl}/students/2`)
   .then(result => {
     dispatch({
-        type: SHOW_TEACHER_QUIZ,
-        payload: result.body
+        type: GET_STUDENT,
+        payload: result.body.evaluation
     })
   })
 .catch(err => console.error(err))
