@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
 import OneStudent from './OneStudent'
 import Button from 'material-ui/Button'
+import {Redirect, Link} from 'react-router-dom'
 import Card, { CardActions, CardContent, CardHeader } from 'material-ui/Card'
 
 class Students extends Component {
@@ -28,11 +29,13 @@ class Students extends Component {
         }
       }
     )]
+
     let l = list.toString().length
 
     return parseInt(list.toString()
     [Math.floor(Math.random() * l)])
   }
+
 renderColor(lastEvaluation) {
   switch (lastEvaluation) {
       case "g":
@@ -44,7 +47,11 @@ renderColor(lastEvaluation) {
 }
 
 render() {
-    const {batch} = this.props
+  const {batch, authenticated} = this.props
+  if (!authenticated) return (
+      <Redirect to="/login" />
+    )
+
         if (!batch.students) return null
 
     return (
@@ -58,13 +65,15 @@ render() {
       </Button>
 
       {batch.students.map(x => {
-          const {batch} = this.props
+        const {batch} = this.props
         return (
           <Card>
           <OneStudent
-            student={x}/>
-            <h1>{this.renderColor(x.evaluation[x.evaluation.length-1].color)}</h1>
-          <CardActions>
+          student={x}/>
+          <h1>{this.renderColor(
+            x.evaluation[x.evaluation.length-1].color)}
+            </h1>
+            <CardActions>
             <Button
             onClick={
               _=>window.location
@@ -73,16 +82,18 @@ render() {
             Evaluate
             </Button>
             </CardActions>
-          </Card>)
-      }
-      )}
+            </Card>)
+        }
+      )
+    }
 
         </div>
-              );
-            }
-          }
+      );
+    }
+  }
 
 const mapStateToProps = state => ({
+  authenticated: state.currentUser,
   batch: state.batch
 })
 
