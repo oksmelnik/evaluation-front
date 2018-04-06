@@ -3,9 +3,10 @@ const baseUrl = 'http://localhost:4001'
 
 export const GET_STUDENT = 'GET_STUDENT'
 
-export const getStudent = (studentId) => (dispatch) => {
+export const getStudent = (id) => (dispatch) => {
   request
-  .get(`${baseUrl}/students/2`)
+  .get(`${baseUrl}/students/${id}`)
+
   .then(result => {
     dispatch({
         type: GET_STUDENT,

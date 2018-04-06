@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Redirect, Link} from 'react-router-dom'
 import { allBatches } from '../actions/batches'
 import {connect} from 'react-redux'
 import Button from 'material-ui/Button'
@@ -10,8 +11,12 @@ class Batches extends Component {
   }
 
   render() {
-    const {aBatches} = this.props
+    const {aBatches, authenticated} = this.props
     if (!aBatches[0]) return null
+
+    if (!authenticated) return (
+  			<Redirect to="/login" />
+  		)
 
     return (
       <div>
@@ -47,6 +52,7 @@ class Batches extends Component {
           }
 
 const mapStateToProps = state => ({
+  authenticated: state.currentUser,
   aBatches: state.batches
 })
 

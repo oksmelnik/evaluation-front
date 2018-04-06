@@ -3,8 +3,7 @@ import { getStudent } from '../actions/students'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
 import OneStudent from './OneStudent'
-
-
+import './evaluation.css'
 
 class Evaluation extends Component {
 
@@ -12,14 +11,28 @@ class Evaluation extends Component {
       this.props.getStudent(this.props.match.params.studentId)
   }
 
+  renderEvaluations = () => {
+      const {astudent} = this.props
+      return astudent.map(x => {
+        return(
+          <div className={`foo ${x.color}`}>
+          </div>
+        )
+      }
+    )}
+
   render() {
 
     const {astudent} = this.props
-      if (!astudent) return null
+      if (!astudent[0]) return null
 
     return (
-      <h1>sfv</h1>
-    );
+      <div>
+      <h1>Evaluations:</h1>
+      {this.renderEvaluations()}
+      </div>
+
+    )
             }
           }
 
