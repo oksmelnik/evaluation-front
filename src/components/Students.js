@@ -6,8 +6,6 @@ import OneStudent from './OneStudent'
 import Button from 'material-ui/Button'
 import Card, { CardActions, CardContent, CardHeader } from 'material-ui/Card'
 
-
-
 class Students extends Component {
 
   componentWillMount() {
@@ -15,7 +13,6 @@ class Students extends Component {
   }
 
   randomStudent() {
-
     const {batch} = this.props
     const list = [batch.students.map(x => {
         const nameS = x.id.toString()
@@ -33,11 +30,20 @@ class Students extends Component {
     )]
     let l = list.toString().length
 
-return parseInt(list.toString()
-[Math.floor(Math.random() * l)])
+    return parseInt(list.toString()
+    [Math.floor(Math.random() * l)])
   }
+renderColor(lastEvaluation) {
+  switch (lastEvaluation) {
+      case "g":
+      return "green";
+      case "y":
+      return "yellow";
+      case "r":
+      return "red"}
+}
 
-  render() {
+render() {
     const {batch} = this.props
         if (!batch.students) return null
 
@@ -57,6 +63,7 @@ return parseInt(list.toString()
           <Card>
           <OneStudent
             student={x}/>
+            <h1>{this.renderColor(x.evaluation[x.evaluation.length-1].color)}</h1>
           <CardActions>
             <Button
             onClick={

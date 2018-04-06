@@ -12,8 +12,8 @@ class Evaluation extends Component {
   }
 
   renderEvaluations = () => {
-      const {astudent} = this.props
-      return astudent.map(x => {
+      const {eva} = this.props
+      return eva.map(x => {
         return(
           <div className={`foo ${x.color}`}>
           </div>
@@ -23,11 +23,14 @@ class Evaluation extends Component {
 
   render() {
 
-    const {astudent} = this.props
-      if (!astudent[0]) return null
+    const {eva, student} = this.props
+      if (!eva) return null
+      if (!student) return null
 
     return (
       <div>
+      <OneStudent
+        student={student}/>
       <h1>Evaluations:</h1>
       {this.renderEvaluations()}
       </div>
@@ -37,8 +40,8 @@ class Evaluation extends Component {
           }
 
 const mapStateToProps = (state, props) => ({
-
-astudent: state.student
+student: state.student,
+eva: state.student.evaluation
 })
 
 export default withRouter(

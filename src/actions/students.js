@@ -10,7 +10,7 @@ export const getStudent = (id) => (dispatch) => {
   .then(result => {
     dispatch({
         type: GET_STUDENT,
-        payload: result.body.evaluation
+        payload: result.body
     })
   })
 .catch(err => console.error(err))
