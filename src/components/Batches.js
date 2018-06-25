@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import {Redirect, Link} from 'react-router-dom'
-import { allBatches } from '../actions/batches'
+import BatchForm from './BatchForm'
+import { allBatches, addBatch } from '../actions/batches'
 import {connect} from 'react-redux'
 import Button from 'material-ui/Button'
 import Card, { CardActions, CardContent, CardHeader } from 'material-ui/Card'
+
+
 class Batches extends Component {
 
   componentWillMount() {
     this.props.allBatches()
   }
 
+  createBatch = (product) => {
+    this.props.addBatch(product)
+  }
+
   render() {
     const {aBatches, authenticated} = this.props
     if (!aBatches[0]) return null
 
-    if (!authenticated) return (
-  			<Redirect to="/login" />
-  		)
 
     return (
       <div>
@@ -41,11 +45,12 @@ class Batches extends Component {
             >
             Go to batch
             </Button>
-            </CardActions>
+              </CardActions>
             </Card>
+          )}
         )}
-        )}
-
+        <h2>Add a batch</h2>
+        <BatchForm onSubmit={this.createBatch}/>
                 </div>
               );
             }
@@ -56,4 +61,4 @@ const mapStateToProps = state => ({
   aBatches: state.batches
 })
 
-export default connect(mapStateToProps, { allBatches })(Batches)
+export default connect(mapStateToProps, { allBatches, addBatch })(Batches)
